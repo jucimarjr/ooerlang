@@ -1,0 +1,9 @@
+-class(empregado).
+-export([get_salario/0, calcular/0]).
+
+methods.
+
+get_salario() -> -1.
+
+calcular() ->
+    io:format("Salario da superclasse:~p ~n", [ self::get_salario() ] ).

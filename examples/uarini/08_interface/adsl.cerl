@@ -1,0 +1,8 @@
+-class(adsl).
+-implements(conexao).
+-export([conectar/0]).
+
+methods.
+
+conectar() ->
+	"Adsl conectado...".

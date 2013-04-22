@@ -1,0 +1,8 @@
+-class(aviao).
+-extends(transporte).
+-export([exibeDados/0]).
+
+methods.
+
+exibeDados() ->
+	io:format("Aviao: Voando... ~n").

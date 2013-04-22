@@ -1,0 +1,16 @@
+-abstract(componenteComposite).
+-extends(componente).
+-constructor([constructor/0]).
+-export([add/1]).
+
+class_attributes.
+
+protected arrayList<Componente> Componentes = arrayList<Componente>::constructor().
+
+class_methods.
+
+constructor() ->
+	ok.
+
+add(C) when is_instance(C, componente) ->
+	Componentes::add(c).

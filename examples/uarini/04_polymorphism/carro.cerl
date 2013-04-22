@@ -1,0 +1,22 @@
+-class(carro).
+-extends(ipva).
+-export([calcularIpva/0]).
+-constructor([constructor/2]).
+
+attributes.
+
+Ano;
+Placa;
+VlrBase.
+%VlrBase = 1.20.
+
+methods.
+
+constructor(Ano, Placa) ->
+	self::Ano = Ano,
+	self::Placa = Placa,
+	self::VlrBase = 1.20,
+	self::QtdCavalos = 150.
+
+calcularIpva() ->
+	self::VlrBase * self::QtdCavalos.

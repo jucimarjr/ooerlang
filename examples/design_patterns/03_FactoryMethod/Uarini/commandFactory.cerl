@@ -1,0 +1,20 @@
+-class(commandFactory).
+-export([create/1]).
+
+class_methods.
+
+create(Nome) ->
+	Command = null,
+	
+	case Nome == "CommandEmail" of
+		true ->
+			Command = commandEmail::constructor();
+		false ->
+			case Nome == "CommandPDF" of
+				true ->
+					Command = commandPDF::constructor();
+				false ->
+					nop
+		end
+	end,
+	Command.

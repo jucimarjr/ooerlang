@@ -1,0 +1,6 @@
+-interface(quackBehaviour).
+-export([quack/0]).
+
+methods.
+
+quack().

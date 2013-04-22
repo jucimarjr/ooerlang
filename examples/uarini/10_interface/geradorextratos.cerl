@@ -1,0 +1,7 @@
+-class(geradorextratos).
+-export([geradorConta/1]).
+
+methods.
+
+geradorConta(Conta) ->
+	io:format("Saldo atual: ~p~n", [Conta::getSaldo()]).

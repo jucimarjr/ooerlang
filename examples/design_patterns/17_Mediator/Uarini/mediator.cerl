@@ -1,0 +1,43 @@
+-class(mediator).
+-implements([iMediator]).
+-export([book/0, view/0, search/0]).
+-export([registerBook/1, registerView/1, registerSearch/1, registerDisplay/1]).
+
+class_attributes.
+ 
+btnView BtnView;
+btnSearch BtnSearch;
+btnBook BtnBook;
+lblDisplay Show.
+
+class_methods.
+ 
+registerView(V) when is_instance(V, btnView) ->
+	self::BtnView = V.
+ 
+registerSearch(S) when is_instance(S, btnSearch) ->
+	self::BtnSearch = S.
+
+registerBook(B) when is_instance(b, btnBook) ->
+    self::BtnBook = B.
+ 
+registerDisplay(D) when is_instance(D, lblDisplay) ->
+	self::Show = D.
+
+book() ->
+	self::BtnBook::setEnabled(false),
+    self::BtnView::setEnabled(true),
+    self::BtnSearch::setEnabled(true),
+    self::Show::setText("booking...").
+ 
+view() ->
+	self::BtnView::setEnabled(false),
+    self::BtnSearch::setEnabled(true),
+    self::BtnBook::setEnabled(true),
+    self::Show::setText("viewing...").
+ 
+search() ->
+	self::BtnSearch::setEnabled(false),
+	self::BtnView.setEnabled(true),
+    self::BtnBook::setEnabled(true),
+    self::Show::setText("searching...").

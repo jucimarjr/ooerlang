@@ -1,0 +1,19 @@
+form ::=
+    (attribute | rule) '.' |
+    (('class_attributes' | 'attributes') '.'  oo_attributes_1) |
+    (('class_methods' | 'methods') '.' oo_methods)
+
+oo_attributes_1 ::= (oo_attribute ( '.' |';' oo_attributes) | )
+oo_attributes ::= oo_attribute (';' oo_attributes | '.')
+
+oo_attribute ::= var ( |'=' exprs)
+
+oo_methods ::= (function '.' oo_methods | )
+
+function ::= function_clauses
+
+function_clauses ::= function_clause ( | function_clauses )
+
+function_clause ::= atom clause_args clause_guard (clause_body|)
+
+expr_800 ::= expr_900 ((':'|'::') expr_max |)

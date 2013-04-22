@@ -1,0 +1,14 @@
+-class(polimorfismo).
+-export([main/0]).
+
+class_methods.
+
+main() ->
+    H = horista::new(),
+    M = mensalista::new(),
+
+    H::set_salario( 2240.00 ),
+    M::set_salario( 2240.00 ),
+
+    io:format( "Salario em horas: ~p", [H::get_salario()]),
+    io:format( "Salario em horas: ~p", [M::get_salario()]).

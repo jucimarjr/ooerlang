@@ -1,0 +1,8 @@
+-class(squeak).
+-implements(quackBehaviour).
+-export([quack/0]).
+
+methods.
+
+quack() ->
+	io:format("Squeak!~n").

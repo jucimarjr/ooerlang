@@ -1,0 +1,12 @@
+-class(contas).
+-export([mostrarCalculo/3, main/0]).
+
+class_methods.
+
+mostrarCalculo(OperacaoMatematica, X, Y) ->
+	io:format("O resultado eh: ~p~n", [OperacaoMatematica::calcular(X,Y)]).
+	
+main() ->
+	mostrarCalculo(soma::new_(), 5, 2),
+	mostrarCalculo(subtracao::new_(), 5, 2).
+	

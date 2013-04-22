@@ -1,0 +1,20 @@
+-class(responseHandler).
+-implements(observer).
+-export([update/2]).
+
+class_attributes.
+
+Resp.
+
+class_methods.
+
+update(observable Obj, object Arg) 
+		when is_instance(Obj, observable) and
+			is_instance(Arg, object) ->
+	case (is_list(Arg)) of
+		true ->
+			self::Resp = Arg,
+			io:format("~nReceived Response: ~w", [self::Resp]);
+		false ->
+			nop
+	end.

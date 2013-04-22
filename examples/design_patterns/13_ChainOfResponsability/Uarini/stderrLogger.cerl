@@ -1,0 +1,12 @@
+-class(stderrLogger).
+-extends(logger).
+-constructor([constructor/1]).
+
+class_methods.
+
+constructor(Mask) ->
+	self::Mask = Mask.
+
+protected writeMessage(Msg) ->
+	io:format("Sending to stderr: ~p", [msg]).
+

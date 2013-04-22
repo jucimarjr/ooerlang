@@ -1,0 +1,38 @@
+-class(chat_client).
+-author('elmiliox@gmail.com').
+-constructor([register/1]).
+-compile(export_all).
+
+class_methods.
+
+handle_messages(Nickname) ->
+    receive
+        {printmsg, MessageBody} ->
+            io:format("~p received: ~p~n", [Nickname, MessageBody]),
+            handle_messages(Nickname);
+        stop ->
+            ok
+    end.
+
+attributes.
+Nick.
+
+methods.
+
+register(Nickname) ->
+    self::Nick = Nickname,
+    chat_server:join(
+        Nickname,
+        spawn(chat_client, handle_messages, [Nickname])
+    ),
+    ok.
+
+unregister() ->
+    chat_server:unjoin(self::Nick).
+
+send(Message) ->
+    chat_server:send(Message).
+
+send_to(Addressee, Message) ->
+    chat_server:send_to(Addressee, Message).
+

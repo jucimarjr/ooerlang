@@ -1,0 +1,85 @@
+#! /usr/bin/env escript
+
+%% supondo o script no root do repositorio
+-define(UARINI_PATH, element(2, file:get_cwd())).
+-define(LIBS_PATH, ?UARINI_PATH ++ "/ebin").
+-define(SCRIPT_NAME, filename:basename(escript:script_name())).
+-define(COMPILE_OPTIONS,
+		[return_errors, nowarn_unused_vars]).
+-define(ERROR(Msg),
+			io:format(
+					"*********ERROR!~n"
+					"***Reason: ~p~n~n", [Msg])).
+
+%%-----------------------------------------------------------------------------
+%% Imprime a ajuda, indica o que esse escript faz...
+help() ->
+	io:format(""
+	"Usage: "++?SCRIPT_NAME++" [options] [.erl file]\n"
+	"\n"
+	"Options:\n"
+	"\t[-h | --help]  Prints this help\n\n"
+
+	"Modes:\n"
+	"\t.cerl file: Compile and run a erl source generatade by uarini compiler\n\n"
+
+	"\t\tThe .cerl (and so the .erl) file must have a main method with no args.\n"
+	"\t\tFirst I will compile the .erl file, then I will run it.\n\n"
+
+	"\t\tI will run the main function.\n\n").
+
+%%-----------------------------------------------------------------------------
+%% Funcao principal, executada ao chamar escript
+main([]) -> help();
+main(["-h"| _]) -> help();
+main(["--help"| _]) -> help();
+main([FileName | _Args]) ->
+	case filename:extension(FileName) of
+		".erl" ->
+			compile_erl_src(FileName);
+		_ ->
+			?ERROR("Wrong file extension!\n\n")
+	end.
+
+compile_erl_src(FileName) ->
+	io:format("Compiling erlang source...\n"),
+	case compile:file(FileName, ?COMPILE_OPTIONS) of
+		{ok, ModuleName} ->
+			io:format("done!\n\n"),
+			load_libs(ModuleName);
+
+		{error, [{_, [{_,_,{_, enoent}}]}], _} ->
+			Msg = "File not found!",
+			?ERROR(Msg);
+
+		{error, ErrorList, _WarningList} ->
+			?ERROR(ErrorList)
+	end.
+
+load_libs(ModuleName) ->
+	io:format("Loading libs... "),
+	case code:add_pathz(?LIBS_PATH) of
+		true ->
+			io:format("done!\n\n"),
+			run(ModuleName);
+
+		{error, Reason} ->
+			?ERROR("Cant load libs: " ++ Reason)
+	end.
+
+run(ModuleName) ->
+	io:format(
+			"Running Uarini code, function main...\n"
+			"---------------------------------------\n\n"),
+
+	{_, _, StartTime} = now(),
+	ModuleName:main(),
+	{_, _, EndTime} = now(),
+
+	ElapsedTime = EndTime - StartTime,
+	io:format(
+			"\n"
+				"---------------------------------------\n"
+				"Execution finished with success!\n"
+				"Execution time: ~p us (~p s)"
+			"\n\n", [ElapsedTime, ElapsedTime/1000000]).

@@ -1,0 +1,14 @@
+-class(empregado).
+-export([get_salario/0, set_salario/1]).
+
+attributes.
+
+Salario.
+
+methods.
+
+get_salario() ->
+	self::Salario.
+  
+set_salario(Value)->
+	self::Salario = Value.

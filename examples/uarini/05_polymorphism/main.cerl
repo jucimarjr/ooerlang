@@ -1,0 +1,16 @@
+-class(main).
+-export([main/0]).
+
+class_methods.
+
+main() ->
+	Transp = transporte::new_(),
+	Aviao = aviao::new_(),
+	Navio = navio::new_(),
+	Onibus = onibus::new_(),
+	io:format("Polimorfismo (Sobreposicao) ~n"),
+	
+	Transp::exibeDados(),
+	Navio::exibeDados(),
+	Onibus::exibeDados(),
+	Aviao::exibeDados().

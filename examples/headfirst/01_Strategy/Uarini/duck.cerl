@@ -1,0 +1,22 @@
+-class(duck).
+-export([display/0, performFly/0, performQuack/0, swim/0]).
+
+attributes.
+
+FlyBehaviour;
+QuackBehaviour.
+
+methods.
+
+display() -> null.
+
+performFly() ->
+	Temp1 = self::FlyBehaviour,
+	Temp1::fly().
+	
+performQuack() ->
+	Temp2 = self::QuackBehaviour,
+	Temp2::quack().
+	
+swim() ->
+	io:format("All ducks float, even Decoys!~n").

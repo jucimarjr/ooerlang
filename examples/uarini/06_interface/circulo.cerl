@@ -1,0 +1,16 @@
+-class(circulo).
+-implements(figura).
+-export([calcularArea/0, new/1]).
+-constructor([new/1]).
+
+attributes.
+
+Raio.
+
+methods.
+
+new(Raio) ->
+	self::Raio = Raio.
+	
+calcularArea() ->
+	3.14 * self::Raio * self::Raio.

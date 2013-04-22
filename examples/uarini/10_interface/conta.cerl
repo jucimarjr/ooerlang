@@ -1,0 +1,8 @@
+-interface(conta).
+-export([depositar/1, sacar/1, getSaldo/0]).
+
+methods.
+
+depositar(Valor).
+sacar(Valor).
+getSaldo().

@@ -1,0 +1,19 @@
+-class(estadoFactory).
+-export([getEstado/1]).
+
+class_attributes.
+
+hashMap<string, estado> Estados = hashMap<string, estado>::constructor().
+
+class_methods.
+
+getEstado(Nome) ->
+	Busca = Estados::get(Nome),
+	case Busca == null of
+		true ->
+			Estado = estado::constructor(Nome),
+			Estados::put(Nome, Estado);
+		false ->
+			Estado = Busca
+	end,
+	Estado.

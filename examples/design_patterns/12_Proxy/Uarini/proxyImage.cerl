@@ -1,0 +1,23 @@
+-interface(proxyImage).
+-implements([image]).
+-constructor([constructor/1]).
+-export([displayImage/0]).
+
+class_attributes.
+
+Filename = "";
+image Image = image::null.
+
+class_methods.
+
+constructor(FILENAME) ->
+	self::Filename = FILENAME.
+
+displayImage() ->
+	case self::Image == image::null of
+		true ->
+			self::Image = realImage::constructor(self::FileName);
+		false ->
+			nop
+	end,
+	self::Image::displayImage().

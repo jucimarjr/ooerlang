@@ -1,0 +1,22 @@
+-class(pessoa).
+-constructor([new/2]).
+-export([gastar/1, receber/1]).
+
+attributes.
+
+Nome;
+Nascimento;
+DinheiroNaCarteira.
+
+methods.
+
+new(Nome, Nasc) ->  
+    self::Nome = Nome,
+    self::Nascimento = Nasc,
+    self::DinheiroNaCarteira = 0.
+    
+gastar(Valor) -> 
+    self::DinheiroNaCarteira = self::DinheiroNaCarteira - Valor.
+    
+receber(Valor) ->  
+    self::DinheiroNaCarteira = self::DinheiroNaCarteira + Valor.

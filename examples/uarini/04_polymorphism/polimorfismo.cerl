@@ -1,0 +1,15 @@
+-class(polimorfismo).
+-export([main/0]).
+
+class_methods.
+
+imprimir_imposto(IPVA) ->
+	io:format("Ipva: ~p~n", [IPVA::calcularIpva()]).
+
+main() ->
+	Caminhao = caminhao::constructor(1995, "JXT - 1234", 3),
+	Bicicleta = bicicleta::constructor(1995, "JXT - 1234", 3),
+	Carro = carro::constructor(2008, "MNO - 4321"),
+	imprimir_imposto(Caminhao),
+	imprimir_imposto(Bicicleta),
+	imprimir_imposto(Carro).

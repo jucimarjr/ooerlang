@@ -1,0 +1,6 @@
+-class(operacaomatematica).
+-export([calcular/2]).
+
+methods.
+
+calcular(X,Y) -> null.

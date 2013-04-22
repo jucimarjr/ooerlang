@@ -1,0 +1,10 @@
+-interface(statusPedido).
+-export([alterar/1, cancelar/1, enviar/1]).
+
+class_methods.
+
+alterar(Pedido) when is_instance(Pedido, pedido).
+
+cancelar(Pedido) when is_instance(Pedido, pedido).
+
+enviar(Pedido) when is_instance(Pedido, pedido).

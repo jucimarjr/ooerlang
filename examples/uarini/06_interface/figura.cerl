@@ -1,0 +1,6 @@
+-interface(figura).
+-export([calcularArea/0]).
+
+methods.
+
+calcularArea().
