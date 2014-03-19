@@ -64,5 +64,3 @@ defmodule Pingping do
     (ms * 1.0e+12) + (s * 1.0e+6) + us
   end
 end
- 
-IO.inspect Pingping.run(5, 100)
