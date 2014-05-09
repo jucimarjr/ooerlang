@@ -63,7 +63,7 @@ defmodule SendRecv do
  
   def generate_data(size), do: generate_data(size, [])
  
-  def generate_data(0, bytes), do: iolist_to_binary(bytes)
+  def generate_data(0, bytes), do: :erlang.list_to_binary(bytes)
  
   def generate_data(size, bytes), do: generate_data(size - 1, [1 | bytes])
  
