@@ -50,7 +50,7 @@ defmodule SendRecv do
   def sender_ring_node(data, rep, second) do
     second |> send(data)
     receive do
-      data ->
+      ^data ->
         sender_ring_node(data, rep - 1, second)
     end
   end
@@ -63,7 +63,7 @@ defmodule SendRecv do
  
   def generate_data(size), do: generate_data(size, [])
  
-  def generate_data(0, bytes), do: iolist_to_binary(bytes)
+  def generate_data(0, bytes), do: :erlang.list_to_binary(bytes)
  
   def generate_data(size, bytes), do: generate_data(size - 1, [1 | bytes])
  
