@@ -4,14 +4,13 @@
 class_methods.
 
 run(DataSize, R) ->
-   OutFileLocation = "out_cerl_pingping.txt",
+    OutFileLocation = "out_cerl_pingping.txt",
 
-   case file:open(OutFileLocation, [append]) of
-	{error, Why} ->
-	    error_report("Falha ao criar arquivo!", Why);
-   
-	{ok, OutFile} ->
-	    run(DataSize, R, OutFile)
+    case file:open(OutFileLocation, [append]) of
+        {error, Why} ->
+            error_report("Falha ao criar arquivo!", Why);
+        {ok, OutFile} ->
+            run(DataSize, R, OutFile)
     end.
 
 run(DataSize, R, OutFile) ->
@@ -19,13 +18,13 @@ run(DataSize, R, OutFile) ->
     Self = self(),
     SpawnStart = time_microseg(),
     P1 = proc::new(Data, Self, R),
-	P2 = proc::new(Data, Self, R),
+    P2 = proc::new(Data, Self, R),
     SpawnEnd = time_microseg(),
     TimeStart = time_microseg(),
     P1::send({init, self(), P2::get_pid() }),
     P2::send({init, self(), P1::get_pid()}),
-	finalize(P1::get_pid()),
-	finalize(P2::get_pid()),
+    finalize(P1::get_pid()),
+    finalize(P2::get_pid()),
     TimeEnd = time_microseg(),
     TotalTime = TimeEnd - TimeStart,
     SpawnTime = SpawnEnd - SpawnStart,
@@ -35,12 +34,11 @@ run(DataSize, R, OutFile) ->
 %% finalize( Pid )
 %% espera termino da execucao do processo
 %%
-%% Pid		= o pid do processo
+%% Pid = o pid do processo
 finalize(Pid) ->
-	receive
-		{finish, Pid} ->
-			ok
-	end.
+    receive
+        {finish, Pid} -> ok
+    end.
 
 %%-----------------------------------------------------------------------------
 %% printResult( Data, R, Time, OutFile )
@@ -48,7 +46,7 @@ finalize(Pid) ->
 %% 
 %% Data (binary) = os dados usados no teste
 %% R             = quantidade de repetições
-%% Time (µs)  = o tempo total do teste
+%% Time (microsec)  = o tempo total do teste
 %% OutFile    = o arquivo de saída
 
 printResult(Data, R, Time_exec, Time_spawn, OutFile) ->
@@ -61,10 +59,10 @@ printResult(Data, R, Time_exec, Time_spawn, OutFile) ->
 
 %%-----------------------------------------------------------------------------
 %% bandwidth_calc(Data, Time)
-%% calcula o tráfego na rede baseado no tamanho dos dados e quanto tempo levou 
+%% calcula o trafego na rede baseado no tamanho dos dados e quanto tempo levou
 %%
-%% Data (binary) = os dados usados no teste
-%% Time (µs)  = o tempo total do teste
+%% Data (binary)   = os dados usados no teste
+%% Time (microsec) = o tempo total do teste
 
 bandwidth_calc(Data, Time) ->
     Megabytes = (size(Data) / math:pow(2, 20)),
@@ -89,14 +87,16 @@ generate_data(Size, Bytes) ->
 %% captura o tempo atual em microsegundos
 time_microseg() ->
     {MS, S, US} = now(),
-    (MS * 1.0e+12) + (S * 1.0e+6) + US.
+    (MS * trunc(1.0e+12)) + (S * trunc(1.0e+6)) + US.
 
 %%-----------------------------------------------------------------------------
 %% error_report(Msg, Reason)
 %% formata a msg de erro
 error_report(Msg, Reason) ->
-	io:format("%%%%%%%%%%%%%% ERRO %%%%%%%%%%%%%%\n" ++
-				     "Msg: ~s\n" ++
-				     "Reason: ~s\n\n", [Msg, Reason]).
+    io:format(
+        "%%%%%%%%%%%%%% ERRO %%%%%%%%%%%%%%\n" ++
+        "Msg: ~s\n" ++
+        "Reason: ~s\n\n",
+        [Msg, Reason]).
 
 

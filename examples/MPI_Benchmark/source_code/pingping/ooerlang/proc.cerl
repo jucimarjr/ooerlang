@@ -9,13 +9,13 @@ Pid.
 methods.
 
 new(Data, Parent, R) ->
-	self::Pid = spawn( fun() -> loop(R, Data, Parent) end ).
+    self::Pid = spawn( fun() -> loop(R, Data, Parent) end ).
 
 send(Msg) ->
-	self::Pid ! Msg.
+    self::Pid ! Msg.
 
 get_pid() ->
-	self::Pid.
+    self::Pid.
 
 class_methods.
 
@@ -23,13 +23,12 @@ loop(0, _, Parent) ->
     Parent ! {finish, self()};
 
 loop(R, Data, Parent) ->
-	receive
-		{init, Parent, Peer} ->
-	    	Peer ! {self(), Data},
-	    	loop(R-1, Data, Parent);
-	    	
-		{Peer, Data} ->
-	    	Peer ! {self(), Data},
-	    	loop(R-1, Data, Parent)
+    receive
+        {init, Parent, Peer} ->
+            Peer ! {self(), Data},
+            loop(R-1, Data, Parent);
+        {Peer, _} ->
+            Peer ! {self(), Data},
+            loop(R-1, Data, Parent)
    end.
 
